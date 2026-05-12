@@ -21,60 +21,73 @@ export default function ContactForm() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState(null); // 'success', 'error'
+  const [formErrors, setFormErrors] = useState({});
+
+  const validateForm = () => {
+    const nextErrors = {};
+
+    if (!formData.fullName.trim()) {
+      nextErrors.fullName = "Full name is required.";
+    }
+
+    if (!formData.email.trim()) {
+      nextErrors.email = "Email address is required.";
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email.trim())) {
+      nextErrors.email = "Please enter a valid email address.";
+    }
+
+    if (!formData.service) {
+      nextErrors.service = "Please select a service.";
+    }
+
+    return nextErrors;
+  };
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
     // Clear status when user starts typing again
     if (submitStatus) setSubmitStatus(null);
+    if (formErrors[name]) {
+      setFormErrors((currentErrors) => {
+        const nextErrors = { ...currentErrors };
+        delete nextErrors[name];
+        return nextErrors;
+      });
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setIsSubmitting(true);
-    setSubmitStatus(null);
+    if (isSubmitting) return;
 
-    // Simulate API call (replace with your actual endpoint)
-    try {
-      await new Promise((resolve) => setTimeout(resolve, 1500));
-      // On success:
-      setSubmitStatus("success");
-      setFormData({
-        fullName: "",
-        email: "",
-        phone: "",
-        service: "tax-consultation",
-        message: "",
-      });
-    } catch (error) {
-      console.error("Form submission error:", error);
-      setSubmitStatus("error");
-    } finally {
-      setIsSubmitting(false);
+    const nextErrors = validateForm();
+    if (Object.keys(nextErrors).length > 0) {
+      setFormErrors(nextErrors);
+      setSubmitStatus(null);
+      return;
     }
-  };
-  const handleSubmitemail = async (e) => {
-    e.preventDefault();
+
     setIsSubmitting(true);
     setSubmitStatus(null);
+    setFormErrors({});
 
     try {
       const result = await emailjs.send(
         "service_g5zv7as",
         "template_4oqakjo",
         {
-          fullName: formData.fullName,
-          email: formData.email,
-          phone: formData.phone,
+          fullName: formData.fullName.trim(),
+          email: formData.email.trim(),
+          phone: formData.phone.trim(),
           service: formData.service,
-          message: formData.message,
+          message: formData.message.trim(),
         },
         "wAHMhgO07gRmjvqj1",
       );
 
       console.log("Email sent:", result.text);
-
       setSubmitStatus("success");
-
       setFormData({
         fullName: "",
         email: "",
@@ -236,12 +249,21 @@ export default function ContactForm() {
                 <input
                   type="text"
                   name="fullName"
-                  required
                   value={formData.fullName}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition outline-none"
+                  aria-invalid={Boolean(formErrors.fullName)}
+                  className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition outline-none ${
+                    formErrors.fullName
+                      ? "border-red-400 bg-red-50"
+                      : "border-gray-300"
+                  }`}
                   placeholder="Full Name"
                 />
+                {formErrors.fullName && (
+                  <p className="mt-1 text-sm text-red-600">
+                    {formErrors.fullName}
+                  </p>
+                )}
               </div>
 
               <div>
@@ -251,12 +273,21 @@ export default function ContactForm() {
                 <input
                   type="email"
                   name="email"
-                  required
                   value={formData.email}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition outline-none"
+                  aria-invalid={Boolean(formErrors.email)}
+                  className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition outline-none ${
+                    formErrors.email
+                      ? "border-red-400 bg-red-50"
+                      : "border-gray-300"
+                  }`}
                   placeholder="conatct@example.com"
                 />
+                {formErrors.email && (
+                  <p className="mt-1 text-sm text-red-600">
+                    {formErrors.email}
+                  </p>
+                )}
               </div>
 
               <div>
@@ -279,10 +310,14 @@ export default function ContactForm() {
                 </label>
                 <select
                   name="service"
-                  required
                   value={formData.service}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition outline-none bg-white"
+                  aria-invalid={Boolean(formErrors.service)}
+                  className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition outline-none bg-white ${
+                    formErrors.service
+                      ? "border-red-400 bg-red-50"
+                      : "border-gray-300"
+                  }`}
                 >
                   <option value="tax-consultation">Tax Consultation</option>
                   <option value="company-registration">
@@ -292,6 +327,11 @@ export default function ContactForm() {
                   <option value="corporate-docs">Corporate Legal Docs</option>
                   <option value="other">Other / Not sure</option>
                 </select>
+                {formErrors.service && (
+                  <p className="mt-1 text-sm text-red-600">
+                    {formErrors.service}
+                  </p>
+                )}
               </div>
 
               <div>
@@ -309,7 +349,6 @@ export default function ContactForm() {
               </div>
 
               <motion.button
-                onClick={handleSubmitemail}
                 type="submit"
                 disabled={isSubmitting}
                 whileHover={buttonHover}
