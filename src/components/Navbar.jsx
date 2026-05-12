@@ -208,7 +208,12 @@ export default function Navbar() {
             {navLinks.map((link) => (
               <Link
                 key={link.name}
-                to={`/${link.section === "top" ? "" : `#${link.section}`}`}
+                to={link.section === "top" ? "/#top" : `/#${link.section}`}
+                onClick={() => {
+                  if (link.section === "top" && location.pathname === "/") {
+                    window.scrollTo({ top: 0, behavior: "smooth" });
+                  }
+                }}
                 className="flex min-w-15 justify-center"
               >
                 {(() => {
