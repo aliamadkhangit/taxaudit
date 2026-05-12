@@ -20,7 +20,7 @@ export default function HeroSection() {
         variants={sectionFadeUp}
         initial="hidden"
         animate="show"
-        className="relative overflow-hidden bg-linear-to-br from-[#f8fafd] via-white to-indigo-50/30 pt-20 pb-28 md:pt-28 md:pb-36"
+        className="relative overflow-hidden bg-linear-to-br from-[#f8fafd] via-white to-indigo-50/30 pt-20 pb-28 md:pt-5 md:pb-36"
       >
         {/* Animated background blobs */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
