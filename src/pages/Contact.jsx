@@ -21,7 +21,7 @@ function ContactCTA() {
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <a
-            href="#book-consultation"
+            href="#contact-form"
             className="bg-white text-indigo-900 font-semibold py-3 px-8 rounded-xl shadow-lg hover:bg-gray-100 transition"
           >
             Book your free consultation →
@@ -30,7 +30,7 @@ function ContactCTA() {
             href="tel:+923001234567"
             className="border border-indigo-300 text-white font-medium py-3 px-8 rounded-xl hover:bg-indigo-800 transition"
           >
-            Call us: +92 300 1234567
+            Call us: +923288042464
           </a>
         </div>
         <p className="text-indigo-200 text-sm mt-8">

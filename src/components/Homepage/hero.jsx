@@ -1,55 +1,67 @@
+import { Mail, Shield, Award, Briefcase } from "lucide-react";
+import { FaTwitter } from "react-icons/fa";
+
 export default function HeroSection() {
   return (
-    <section className="relative overflow-hidden bg-gradient-to-br from-slate-50 to-indigo-50/40 pt-16 pb-24 md:pt-24 md:pb-32">
-      <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12">
-        <div className="text-center md:text-left md:flex md:items-center md:justify-between gap-12">
-          {/* Left content */}
-          <div className="flex-1 space-y-6">
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-gray-900 leading-tight">
-              Expert Tax & Corporate Solutions{" "}
-              <br className="hidden sm:block" />
-              for{" "}
-              <span className="text-indigo-700">Individuals & Businesses</span>
-            </h1>
-            <p className="text-lg sm:text-xl text-gray-600 max-w-2xl mx-auto md:mx-0">
-              Helping businesses and professionals handle tax filing, company
-              registration, compliance, and legal documentation with confidence
-              and clarity.
-            </p>
+    <>
+      <section className="relative overflow-hidden bg-gradient-to-br from-slate-50 via-white to-indigo-50/30 pt-20 pb-28 md:pt-28 md:pb-36">
+        {/* Animated background blobs */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <div className="absolute -top-40 -right-40 w-80 h-80 bg-indigo-200/30 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-indigo-100/40 rounded-full blur-3xl animate-pulse delay-1000"></div>
+        </div>
 
-            {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start pt-2">
-              <a
-                href="#book-consultation"
-                className="bg-indigo-700 hover:bg-indigo-800 text-white font-semibold py-3 px-8 rounded-xl shadow-md hover:shadow-lg transition-all text-center"
-              >
-                Book Consultation
-              </a>
-              <a
-                href="#services"
-                className="border border-gray-300 bg-white hover:bg-gray-50 text-gray-800 font-semibold py-3 px-8 rounded-xl shadow-sm transition-all text-center"
-              >
-                Explore Services
-              </a>
-            </div>
+        <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 relative z-10">
+          <div className="flex flex-col lg:flex-row items-center gap-12">
+            {/* Left Content */}
+            <div className="flex-1 text-center lg:text-left">
+              {/* Trust badge */}
+              <div className="inline-flex items-center gap-2 bg-indigo-50 border border-indigo-100 rounded-full px-4 py-1.5 mb-6">
+                <Shield className="w-4 h-4 text-indigo-600" />
+                <span className="text-xs font-semibold text-indigo-700 uppercase tracking-wide">
+                  Pakistan's Trusted Tax & Legal Partner
+                </span>
+              </div>
 
-            {/* Small Trust Text */}
-            <div className="pt-6 border-t border-gray-200/70 max-w-md mx-auto md:mx-0">
-              <p className="text-sm text-gray-500 flex items-center gap-2 justify-center md:justify-start">
-                <span className="text-indigo-600 text-lg">✓</span> Trusted by
-                startups, business owners, freelancers, and growing companies
-                across Pakistan.
-              </p>
-            </div>
-          </div>
-
-          {/* Right decorative element (optional authority symbol) */}
-          <div className="hidden md:block flex-1 max-w-sm">
-            <div className="bg-indigo-50/80 rounded-2xl p-6 shadow-xl border border-indigo-100">
-              <div className="flex items-center gap-3 mb-4">
-                <div className="h-12 w-12 bg-indigo-100 rounded-full flex items-center justify-center">
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-extrabold tracking-tight text-gray-900 leading-tight">
+                Expert Tax & Corporate{" "}
+                <span className="text-indigo-700 relative inline-block">
+                  Solutions
                   <svg
-                    className="w-6 h-6 text-indigo-700"
+                    className="absolute -bottom-2 left-0 w-full h-2 text-indigo-200"
+                    viewBox="0 0 200 8"
+                    preserveAspectRatio="none"
+                  >
+                    <path
+                      d="M0 4 L200 4"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeDasharray="4 4"
+                    />
+                  </svg>
+                </span>
+                <br />
+                for{" "}
+                <span className="text-indigo-700">
+                  Individuals & Businesses
+                </span>
+              </h1>
+
+              <p className="text-lg sm:text-xl text-gray-600 mt-6 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
+                Helping businesses and professionals handle tax filing, company
+                registration, compliance, and legal documentation with
+                confidence and clarity.
+              </p>
+
+              {/* CTA Buttons */}
+              <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mt-8">
+                <a
+                  href="#contact-form"
+                  className="group bg-indigo-700 hover:bg-indigo-800 text-white font-semibold py-3.5 px-8 rounded-xl shadow-md hover:shadow-xl transition-all duration-300 flex items-center justify-center gap-2"
+                >
+                  Book Consultation
+                  <svg
+                    className="w-4 h-4 group-hover:translate-x-1 transition-transform"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -57,22 +69,130 @@ export default function HeroSection() {
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
-                      strokeWidth={1.8}
-                      d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
+                      strokeWidth={2}
+                      d="M9 5l7 7-7 7"
                     />
                   </svg>
-                </div>
-                <span className="font-semibold text-gray-800">
-                  10+ Years of Excellence
-                </span>
+                </a>
+                <a
+                  href="#services"
+                  className="border-2 border-gray-300 bg-white hover:bg-gray-50 text-gray-800 font-semibold py-3.5 px-8 rounded-xl shadow-sm hover:shadow-md transition-all duration-300 text-center"
+                >
+                  Explore Services
+                </a>
               </div>
-              <p className="text-gray-600 text-sm">
-                Recognized by leading chambers & professional bodies.
-              </p>
+
+              {/* Trust Text + Social Icons Row */}
+              <div className="mt-8 pt-6 border-t border-gray-200 flex flex-col sm:flex-row items-center justify-between gap-4 max-w-2xl mx-auto lg:mx-0">
+                <p className="text-sm text-gray-500 flex items-center gap-2">
+                  <span className="text-indigo-600 text-lg">✓</span>
+                  Trusted by startups, business owners, freelancers, and growing
+                  companies across Pakistan.
+                </p>
+
+                {/* Social Icons - Professional Presence */}
+                <div className="flex items-center gap-3">
+                  {/* <span className="text-xs text-gray-400">Follow us:</span>
+                <a
+                  href="https://linkedin.com/company/trustedge"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-gray-500 hover:text-indigo-600 transition-colors"
+                  aria-label="LinkedIn"
+                >
+                  <Linkedin className="w-4 h-4" />
+                </a> */}
+                  <a
+                    href="https://twitter.com/trustedge"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-gray-500 hover:text-indigo-600 transition-colors"
+                    aria-label="Twitter"
+                  >
+                    <FaTwitter className="w-4 h-4" />
+                  </a>
+                  {/* <a
+                  href="https://github.com/trustedge"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-gray-500 hover:text-indigo-600 transition-colors"
+                  aria-label="GitHub"
+                >
+                  <Github className="w-4 h-4" />
+                </a> */}
+                  <a
+                    href="mailto:hello@trustedge.com"
+                    className="text-gray-500 hover:text-indigo-600 transition-colors"
+                    aria-label="Email"
+                  >
+                    <Mail className="w-4 h-4" />
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            {/* Right Side - Enhanced Authority Card */}
+            <div className="flex-1 max-w-md w-full">
+              <div className="bg-white/70 backdrop-blur-sm rounded-2xl p-6 shadow-xl border border-indigo-100/50 relative overflow-hidden">
+                <div className="absolute top-0 right-0 w-24 h-24 bg-indigo-50 rounded-full -mr-12 -mt-12"></div>
+                <div className="relative z-10">
+                  <div className="flex items-center gap-3 mb-5">
+                    <div className="h-14 w-14 bg-gradient-to-br from-indigo-500 to-indigo-700 rounded-xl flex items-center justify-center shadow-md">
+                      <Award className="w-7 h-7 text-white" />
+                    </div>
+                    <div>
+                      <span className="font-bold text-gray-800 text-lg">
+                        10+ Years of Excellence
+                      </span>
+                      <p className="text-xs text-gray-500">
+                        Industry leadership
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="space-y-3">
+                    <div className="flex items-center gap-3 text-sm">
+                      <Briefcase className="w-4 h-4 text-indigo-600" />
+                      <span className="text-gray-700">
+                        2500+ tax returns filed successfully
+                      </span>
+                    </div>
+                    <div className="flex items-center gap-3 text-sm">
+                      <Shield className="w-4 h-4 text-indigo-600" />
+                      <span className="text-gray-700">
+                        100% compliance & confidentiality
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="mt-5 pt-4 border-t border-gray-100">
+                    <p className="text-xs text-gray-500 italic">
+                      "Recognized by leading chambers & professional bodies
+                      across Pakistan."
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Quick Stats Row */}
+              <div className="grid grid-cols-3 gap-3 mt-5">
+                <div className="bg-white rounded-xl p-3 text-center shadow-sm border border-gray-100">
+                  <div className="text-xl font-bold text-indigo-700">98%</div>
+                  <div className="text-xs text-gray-500">Satisfaction</div>
+                </div>
+                <div className="bg-white rounded-xl p-3 text-center shadow-sm border border-gray-100">
+                  <div className="text-xl font-bold text-indigo-700">15+</div>
+                  <div className="text-xs text-gray-500">Experts</div>
+                </div>
+                <div className="bg-white rounded-xl p-3 text-center shadow-sm border border-gray-100">
+                  <div className="text-xl font-bold text-indigo-700">24/7</div>
+                  <div className="text-xs text-gray-500">Support</div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 }

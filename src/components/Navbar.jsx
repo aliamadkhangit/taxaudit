@@ -1,120 +1,184 @@
-import { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, NavLink } from "react-router-dom";
+
+import { BsMoon, BsSun } from "react-icons/bs";
+
+import { AiOutlineHome } from "react-icons/ai";
+
+import { FiPhone, FiAward } from "react-icons/fi";
+
+import { RiBriefcaseLine } from "react-icons/ri";
 
 export default function Navbar() {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isDark, setIsDark] = useState(() => {
+    if (typeof window !== "undefined") {
+      const saved = localStorage.getItem("theme");
+
+      if (saved === "dark") return true;
+      if (saved === "light") return false;
+
+      return window.matchMedia("(prefers-color-scheme: dark)").matches;
+    }
+
+    return false;
+  });
 
   const navLinks = [
-    { name: "Home", to: "/" },
-    { name: "Expertise", to: "/Expertise" },
-    { name: "Services", to: "/services" },
-    { name: "Contact", to: "/contact" },
+    {
+      name: "Home",
+      to: "/",
+      icon: <AiOutlineHome className="w-5 h-5" />,
+    },
+
+    {
+      name: "Services",
+      to: "/services",
+      icon: <RiBriefcaseLine className="w-5 h-5" />,
+    },
+
+    {
+      name: "Expertise",
+      to: "/expertise",
+      icon: <FiAward className="w-5 h-5" />,
+    },
+
+    {
+      name: "Contact",
+      to: "/contact",
+      icon: <FiPhone className="w-5 h-5" />,
+    },
   ];
 
-  return (
-    <nav className="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-gray-100 shadow-sm">
-      <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12">
-        <div className="flex items-center justify-between h-16 md:h-20">
-          {/* Logo */}
-          <div className="flex items-center gap-2">
-            <div className="h-8 w-8 bg-indigo-700 rounded-lg flex items-center justify-center shadow-md">
-              <span className="text-white font-bold text-lg">T</span>
-            </div>
-            <span className="font-bold text-xl tracking-tight text-gray-800">
-              Tax<span className="text-indigo-700">Audit</span>
-            </span>
-            <span className="hidden md:inline-block text-xs font-medium text-gray-400 bg-gray-100 px-2 py-0.5 rounded-full">
-              Legal + Tax
-            </span>
-          </div>
+  const toggleDarkMode = () => {
+    setIsDark(!isDark);
+  };
 
-          {/* Desktop Menu */}
-          <div className="hidden md:flex items-center gap-8">
+  useEffect(() => {
+    if (isDark) {
+      document.documentElement.classList.add("dark");
+      localStorage.setItem("theme", "dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+      localStorage.setItem("theme", "light");
+    }
+  }, [isDark]);
+
+  return (
+    <>
+      {/* Desktop Navbar */}
+      <div className="sticky top-4 z-50 w-full hidden lg:flex justify-center px-4">
+        <div
+          className="
+            w-[90%] max-w-7xl mx-auto
+            bg-white/85 dark:bg-gray-900/85
+            backdrop-blur-xl
+            rounded-full
+            shadow-xl shadow-black/5
+            border border-gray-200 dark:border-gray-800
+            transition-all duration-300
+          "
+        >
+          <div className="flex items-center justify-between h-[72px] px-8">
+            {/* Logo */}
+            <Link
+              to="/"
+              className="
+                text-2xl font-bold tracking-tight
+                text-gray-900 dark:text-white
+              "
+            >
+              Tax
+              <span className="text-indigo-600">Aduite</span>
+            </Link>
+
+            {/* Desktop Links */}
+            <div className="flex items-center space-x-12">
+              {navLinks.map((link) => (
+                <NavLink
+                  key={link.name}
+                  to={link.to}
+                  end={link.to === "/"}
+                  className={({ isActive }) =>
+                    `
+                      text-base font-medium
+                      transition-all duration-300
+                      ${
+                        isActive
+                          ? "text-indigo-600"
+                          : "text-gray-700 dark:text-gray-300 hover:text-indigo-600"
+                      }
+                    `
+                  }
+                >
+                  {link.name}
+                </NavLink>
+              ))}
+            </div>
+
+            {/* Theme Toggle */}
+            <button
+              onClick={toggleDarkMode}
+              className="
+                w-11 h-11 rounded-full
+                bg-gray-100 dark:bg-gray-800
+                flex items-center justify-center
+                text-gray-700 dark:text-gray-300
+                hover:scale-105
+                transition-all duration-300
+              "
+            >
+              {isDark ? (
+                <BsSun className="w-5 h-5" />
+              ) : (
+                <BsMoon className="w-5 h-5" />
+              )}
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Mobile Bottom Navbar */}
+      <div className="lg:hidden fixed bottom-4 left-1/2 -translate-x-1/2 z-50 w-[92%] max-w-md">
+        <div
+          className="
+            bg-white/90 dark:bg-gray-900/90
+            backdrop-blur-xl
+            border border-gray-200 dark:border-gray-800
+            shadow-2xl shadow-black/10
+            rounded-[30px]
+            px-2 py-3
+          "
+        >
+          <div className="flex items-center justify-around">
             {navLinks.map((link) => (
               <NavLink
                 key={link.name}
                 to={link.to}
                 end={link.to === "/"}
                 className={({ isActive }) =>
-                  `font-medium transition text-sm lg:text-base ${
-                    isActive
-                      ? "text-indigo-700"
-                      : "text-gray-600 hover:text-indigo-700"
-                  }`
+                  `
+                    flex flex-col items-center justify-center
+                    min-w-[60px]
+                    transition-all duration-300
+                    ${
+                      isActive
+                        ? "text-indigo-600 scale-110"
+                        : "text-gray-500 dark:text-gray-400"
+                    }
+                  `
                 }
               >
-                {link.name}
+                <div className="mb-1">{link.icon}</div>
+
+                <span className="text-[11px] font-medium">{link.name}</span>
               </NavLink>
             ))}
-            <NavLink
-              to="/contact"
-              className="ml-4 bg-indigo-700 hover:bg-indigo-800 text-white font-semibold py-2.5 px-5 rounded-xl transition shadow-md hover:shadow-lg text-sm"
-            >
-              Book Consultation
-            </NavLink>
           </div>
-
-          {/* Mobile button */}
-          <button
-            onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden p-2 rounded-lg hover:bg-gray-100"
-            aria-label="Menu"
-          >
-            {isOpen ? (
-              <svg
-                className="w-6 h-6"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              </svg>
-            ) : (
-              <svg
-                className="w-6 h-6"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M4 6h16M4 12h16M4 18h16"
-                />
-              </svg>
-            )}
-          </button>
         </div>
-
-        {/* Mobile dropdown */}
-        {isOpen && (
-          <div className="md:hidden py-4 border-t border-gray-100">
-            {navLinks.map((link) => (
-              <NavLink
-                key={link.name}
-                to={link.to}
-                onClick={() => setIsOpen(false)}
-                className="block py-2 text-gray-700 hover:text-indigo-700 font-medium"
-              >
-                {link.name}
-              </NavLink>
-            ))}
-            <NavLink
-              to="/contact"
-              onClick={() => setIsOpen(false)}
-              className="block mt-3 bg-indigo-700 text-white text-center py-2 rounded-lg font-semibold"
-            >
-              Book Consultation
-            </NavLink>
-          </div>
-        )}
       </div>
-    </nav>
+
+      {/* Bottom spacing for mobile navbar */}
+      <div className=" lg:h-6" />
+    </>
   );
 }

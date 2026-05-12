@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import handlesubmitemail from "./Contactform";
+
 export default function Footer() {
   const currentYear = new Date().getFullYear();
 
@@ -15,7 +15,7 @@ export default function Footer() {
                 <span className="text-white font-bold text-lg">T</span>
               </div>
               <span className="font-bold text-white text-xl tracking-tight">
-                Trust<span className="text-indigo-400">Edge</span>
+                Tax<span className="text-indigo-400">Aduit</span>
               </span>
             </div>
             <p className="text-sm text-gray-400 leading-relaxed">
@@ -194,7 +194,7 @@ export default function Footer() {
                     d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
                   />
                 </svg>
-                <span className="text-gray-400">+92 300 1234567</span>
+                <span className="text-gray-400">+923288042464</span>
               </li>
               <li className="flex items-start gap-3 text-sm">
                 <svg
@@ -214,7 +214,7 @@ export default function Footer() {
                   href="mailto:hello@trustedge.com"
                   className="text-gray-400 hover:text-indigo-400 transition"
                 >
-                  hello@trustedge.com
+                  taxaudit486@gmail.com
                 </a>
               </li>
             </ul>
@@ -225,33 +225,20 @@ export default function Footer() {
         <div className="mt-12 pt-8 border-t border-gray-800">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-sm text-gray-400">
-              Subscribe to get expert tax & legal insights directly in your
-              inbox.
+              Get expert tax & legal insights and professional consultation.
             </p>
-            <form
-              className="flex gap-2 w-full md:w-auto"
-              onSubmit={(e) => e.preventDefault()}
+            <a
+              href="#contact-form"
+              className="bg-indigo-600 hover:bg-indigo-700 text-white font-medium px-6 py-2 rounded-lg transition text-sm"
             >
-              <input
-                type="email"
-                placeholder="Your email address"
-                className="px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg text-sm text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent w-full md:w-64"
-                required
-              />
-              <button
-                onClick={handlesubmitemail}
-                type="submit"
-                className="bg-indigo-600 hover:bg-indigo-700 text-white font-medium px-4 py-2 rounded-lg transition text-sm"
-              >
-                Subscribe
-              </button>
-            </form>
+              Get Started
+            </a>
           </div>
         </div>
 
         {/* Copyright bar */}
         <div className="mt-8 pt-6 border-t border-gray-800 text-center text-xs text-gray-500">
-          © {currentYear} TrustEdge. All rights reserved. Empowering Pakistan’s
+          © {currentYear} TaxAduit. All rights reserved. Empowering Pakistan’s
           businesses.
         </div>
       </div>
