@@ -21,7 +21,7 @@ export default function Navbar() {
               <span className="text-white font-bold text-lg">T</span>
             </div>
             <span className="font-bold text-xl tracking-tight text-gray-800">
-              Trust<span className="text-indigo-700">Edge</span>
+              Tax<span className="text-indigo-700">Audit</span>
             </span>
             <span className="hidden md:inline-block text-xs font-medium text-gray-400 bg-gray-100 px-2 py-0.5 rounded-full">
               Legal + Tax

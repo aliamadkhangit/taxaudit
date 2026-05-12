@@ -1,7 +1,7 @@
 import HeroSection from "../components/Homepage/hero";
 import ServicesSection from "./Services";
-import ContactCTA from "./Contact";
-
+import LocationMap from "../components/map";
+import ContactForm from "../components/Contactform";
 export default function Home() {
   return (
     <>
@@ -28,7 +28,8 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <ContactCTA />
+      <LocationMap />
+      <ContactForm />
     </>
   );
 }

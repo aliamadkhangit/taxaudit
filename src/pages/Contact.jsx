@@ -1,4 +1,15 @@
-export default function ContactCTA() {
+import ContactForm from "../components/Contactform";
+
+export default function Contact() {
+  return (
+    <>
+      <ContactForm />
+      <ContactCTA />
+    </>
+  );
+}
+
+function ContactCTA() {
   return (
     <section id="contact" className="py-20 bg-indigo-900 text-white">
       <div className="max-w-5xl mx-auto px-5 sm:px-8 text-center">
