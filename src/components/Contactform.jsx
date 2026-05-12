@@ -1,5 +1,15 @@
 import emailjs from "emailjs-com";
 import { useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import {
+  buttonHover,
+  buttonTap,
+  cardHover,
+  fadeItem,
+  sectionFadeUp,
+  staggerContainer,
+  viewportOnce,
+} from "../lib/animations";
 
 export default function ContactForm() {
   const [formData, setFormData] = useState({
@@ -81,25 +91,44 @@ export default function ContactForm() {
   };
 
   return (
-    <section id="contact-form" className="py-20 bg-white">
+    <motion.section
+      id="contact-form"
+      className="py-20 bg-white"
+      variants={sectionFadeUp}
+      initial="hidden"
+      whileInView="show"
+      viewport={viewportOnce}
+    >
       <div className="max-w-6xl mx-auto px-5 sm:px-8 lg:px-12">
         <div className="grid md:grid-cols-2 gap-12 items-start">
           {/* Left side – info + trust badges */}
-          <div>
-            <span className="text-indigo-600 font-semibold text-sm uppercase tracking-wide">
+          <motion.div variants={staggerContainer}>
+            <motion.span
+              variants={fadeItem}
+              className="text-indigo-600 font-semibold text-sm uppercase tracking-wide"
+            >
               Get in touch
-            </span>
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mt-2">
+            </motion.span>
+            <motion.h2
+              variants={fadeItem}
+              className="text-3xl md:text-4xl font-bold text-gray-900 mt-2"
+            >
               Let’s talk about your{" "}
               <span className="text-indigo-700">legal & tax needs</span>
-            </h2>
-            <p className="text-gray-500 mt-4 text-lg">
+            </motion.h2>
+            <motion.p
+              variants={fadeItem}
+              className="text-gray-500 mt-4 text-lg"
+            >
               Fill out the form and one of our experts will reach out within 24
               hours.
-            </p>
+            </motion.p>
 
-            <div className="mt-8 space-y-5">
-              <div className="flex items-start gap-4">
+            <motion.div variants={fadeItem} className="mt-8 space-y-5">
+              <motion.div
+                whileHover={{ x: 3 }}
+                className="flex items-start gap-4"
+              >
                 <div className="bg-indigo-50 p-2 rounded-full">
                   <svg
                     className="w-5 h-5 text-indigo-700"
@@ -119,8 +148,11 @@ export default function ContactForm() {
                   <h3 className="font-semibold text-gray-800">Email support</h3>
                   <p className="text-gray-500">taxaudit486@gmail.com</p>
                 </div>
-              </div>
-              <div className="flex items-start gap-4">
+              </motion.div>
+              <motion.div
+                whileHover={{ x: 3 }}
+                className="flex items-start gap-4"
+              >
                 <div className="bg-indigo-50 p-2 rounded-full">
                   <svg
                     className="w-5 h-5 text-indigo-700"
@@ -140,8 +172,11 @@ export default function ContactForm() {
                   <h3 className="font-semibold text-gray-800">Call us</h3>
                   <p className="text-gray-500">+923288042464</p>
                 </div>
-              </div>
-              <div className="flex items-start gap-4">
+              </motion.div>
+              <motion.div
+                whileHover={{ x: 3 }}
+                className="flex items-start gap-4"
+              >
                 <div className="bg-indigo-50 p-2 rounded-full">
                   <svg
                     className="w-5 h-5 text-indigo-700"
@@ -163,11 +198,14 @@ export default function ContactForm() {
                   </h3>
                   <p className="text-gray-500">Average reply time: 4 hours</p>
                 </div>
-              </div>
-            </div>
+              </motion.div>
+            </motion.div>
 
             {/* Trust badge row */}
-            <div className="mt-10 flex flex-wrap gap-4">
+            <motion.div
+              variants={fadeItem}
+              className="mt-10 flex flex-wrap gap-4"
+            >
               <div className="bg-gray-50 rounded-full px-4 py-2 text-xs font-medium text-gray-600">
                 🔒 100% Confidential
               </div>
@@ -177,11 +215,15 @@ export default function ContactForm() {
               <div className="bg-gray-50 rounded-full px-4 py-2 text-xs font-medium text-gray-600">
                 ✅ Secure transmission
               </div>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
 
           {/* Right side – form */}
-          <div className="bg-white rounded-2xl shadow-xl border border-gray-100 p-6 md:p-8">
+          <motion.div
+            variants={fadeItem}
+            whileHover={cardHover}
+            className="bg-white rounded-2xl shadow-xl border border-gray-100 p-6 md:p-8"
+          >
             <h3 className="text-2xl font-bold text-gray-800 mb-6">
               Request a consultation
             </h3>
@@ -266,10 +308,12 @@ export default function ContactForm() {
                 ></textarea>
               </div>
 
-              <button
+              <motion.button
                 onClick={handleSubmitemail}
                 type="submit"
                 disabled={isSubmitting}
+                whileHover={buttonHover}
+                whileTap={buttonTap}
                 className="w-full bg-indigo-700 hover:bg-indigo-800 text-white font-semibold py-3.5 rounded-xl transition disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center gap-2"
               >
                 {isSubmitting ? (
@@ -299,22 +343,36 @@ export default function ContactForm() {
                 ) : (
                   "Send message →"
                 )}
-              </button>
+              </motion.button>
 
-              {submitStatus === "success" && (
-                <div className="mt-4 p-3 bg-green-50 text-green-700 rounded-lg text-sm flex items-center gap-2">
-                  <span>✓</span> Thank you! We’ll get back to you shortly.
-                </div>
-              )}
-              {submitStatus === "error" && (
-                <div className="mt-4 p-3 bg-red-50 text-red-700 rounded-lg text-sm">
-                  Something went wrong. Please try again or call us directly.
-                </div>
-              )}
+              <AnimatePresence mode="wait">
+                {submitStatus === "success" && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -6 }}
+                    transition={{ duration: 0.25 }}
+                    className="mt-4 p-3 bg-green-50 text-green-700 rounded-lg text-sm flex items-center gap-2"
+                  >
+                    <span>✓</span> Thank you! We’ll get back to you shortly.
+                  </motion.div>
+                )}
+                {submitStatus === "error" && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -6 }}
+                    transition={{ duration: 0.25 }}
+                    className="mt-4 p-3 bg-red-50 text-red-700 rounded-lg text-sm"
+                  >
+                    Something went wrong. Please try again or call us directly.
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </form>
-          </div>
+          </motion.div>
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 }

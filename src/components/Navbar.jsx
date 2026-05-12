@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, NavLink } from "react-router-dom";
+import { motion } from "framer-motion";
 
 import { BsMoon, BsSun } from "react-icons/bs";
 
@@ -8,6 +9,7 @@ import { AiOutlineHome } from "react-icons/ai";
 import { FiPhone, FiAward } from "react-icons/fi";
 
 import { RiBriefcaseLine } from "react-icons/ri";
+import { buttonHover, buttonTap, easeOutExpo } from "../lib/animations";
 
 export default function Navbar() {
   const [isDark, setIsDark] = useState(() => {
@@ -66,8 +68,15 @@ export default function Navbar() {
   return (
     <>
       {/* Desktop Navbar */}
-      <div className="sticky top-4 z-50 w-full hidden lg:flex justify-center px-4">
-        <div
+      <motion.div
+        initial={{ opacity: 0, y: -26 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.65, ease: easeOutExpo }}
+        className="sticky top-4 z-50 w-full hidden lg:flex justify-center px-4"
+      >
+        <motion.div
+          whileHover={{ y: -1 }}
+          transition={{ duration: 0.2 }}
           className="
             w-[90%] max-w-7xl mx-auto
             bg-white/85 dark:bg-gray-900/85
@@ -78,7 +87,7 @@ export default function Navbar() {
             transition-all duration-300
           "
         >
-          <div className="flex items-center justify-between h-[72px] px-8">
+          <div className="flex items-center justify-between h-18 px-8">
             {/* Logo */}
             <Link
               to="/"
@@ -100,7 +109,7 @@ export default function Navbar() {
                   end={link.to === "/"}
                   className={({ isActive }) =>
                     `
-                      text-base font-medium
+                      group relative text-base font-medium
                       transition-all duration-300
                       ${
                         isActive
@@ -110,20 +119,32 @@ export default function Navbar() {
                     `
                   }
                 >
-                  {link.name}
+                  {({ isActive }) => (
+                    <>
+                      {link.name}
+                      <span className="absolute -bottom-1 left-0 h-0.5 w-full origin-left scale-x-0 bg-indigo-500 transition-transform duration-300 group-hover:scale-x-100" />
+                      {isActive ? (
+                        <motion.span
+                          layoutId="desktop-active-pill"
+                          className="absolute -bottom-1 left-0 h-0.5 w-full bg-indigo-600"
+                        />
+                      ) : null}
+                    </>
+                  )}
                 </NavLink>
               ))}
             </div>
 
             {/* Theme Toggle */}
-            <button
+            <motion.button
               onClick={toggleDarkMode}
+              whileHover={buttonHover}
+              whileTap={buttonTap}
               className="
                 w-11 h-11 rounded-full
                 bg-gray-100 dark:bg-gray-800
                 flex items-center justify-center
                 text-gray-700 dark:text-gray-300
-                hover:scale-105
                 transition-all duration-300
               "
             >
@@ -132,13 +153,18 @@ export default function Navbar() {
               ) : (
                 <BsMoon className="w-5 h-5" />
               )}
-            </button>
+            </motion.button>
           </div>
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
 
       {/* Mobile Bottom Navbar */}
-      <div className="lg:hidden fixed bottom-4 left-1/2 -translate-x-1/2 z-50 w-[92%] max-w-md">
+      <motion.div
+        initial={{ opacity: 0, y: 28 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.55, ease: easeOutExpo, delay: 0.08 }}
+        className="lg:hidden fixed bottom-4 left-1/2 -translate-x-1/2 z-50 w-[92%] max-w-md"
+      >
         <div
           className="
             bg-white/90 dark:bg-gray-900/90
@@ -155,27 +181,39 @@ export default function Navbar() {
                 key={link.name}
                 to={link.to}
                 end={link.to === "/"}
-                className={({ isActive }) =>
-                  `
-                    flex flex-col items-center justify-center
-                    min-w-[60px]
-                    transition-all duration-300
-                    ${
-                      isActive
-                        ? "text-indigo-600 scale-110"
-                        : "text-gray-500 dark:text-gray-400"
-                    }
-                  `
-                }
+                className="flex min-w-15 justify-center"
               >
-                <div className="mb-1">{link.icon}</div>
-
-                <span className="text-[11px] font-medium">{link.name}</span>
+                {({ isActive }) => (
+                  <motion.div
+                    whileHover={{ y: -2, scale: 1.04 }}
+                    whileTap={{ scale: 0.97 }}
+                    className={`relative flex flex-col items-center justify-center transition-all duration-300 ${
+                      isActive
+                        ? "text-indigo-600"
+                        : "text-gray-500 dark:text-gray-400"
+                    }`}
+                  >
+                    {isActive ? (
+                      <motion.span
+                        layoutId="mobile-active-pill"
+                        className="absolute -top-2 h-1 w-7 rounded-full bg-indigo-600"
+                      />
+                    ) : null}
+                    <motion.div
+                      className="mb-1"
+                      animate={isActive ? { scale: 1.12 } : { scale: 1 }}
+                      transition={{ duration: 0.22 }}
+                    >
+                      {link.icon}
+                    </motion.div>
+                    <span className="text-[11px] font-medium">{link.name}</span>
+                  </motion.div>
+                )}
               </NavLink>
             ))}
           </div>
         </div>
-      </div>
+      </motion.div>
 
       {/* Bottom spacing for mobile navbar */}
       <div className=" lg:h-6" />

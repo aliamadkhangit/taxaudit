@@ -1,27 +1,64 @@
+import { motion } from "framer-motion";
+import {
+  buttonHover,
+  buttonTap,
+  cardHover,
+  fadeItem,
+  sectionFadeUp,
+  staggerContainer,
+  viewportOnce,
+} from "../lib/animations";
+
 export default function LocationMap() {
   const OfficeAddress = "DHA Phase 5, Lahore, Pakistan";
   const mapEmbedUrl =
     "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d217958.6880388857!2d74.20311165!3d31.48212055!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x391903eb7c1dd6c7%3A0xa4a279ab33614dc7!2sDHA%20Phase%205%2C%20Lahore%2C%20Pakistan!5e0!3m2!1sen!2s!4v1715600000000!5m2!1sen!2s";
 
   return (
-    <section id="location" className="py-16 bg-gray-50">
+    <motion.section
+      id="location"
+      className="py-16 bg-gray-50"
+      variants={sectionFadeUp}
+      initial="hidden"
+      whileInView="show"
+      viewport={viewportOnce}
+    >
       <div className="max-w-6xl mx-auto px-5 sm:px-8 lg:px-12">
-        <div className="text-center mb-10">
-          <span className="text-indigo-600 font-semibold text-sm uppercase tracking-wide">
+        <motion.div variants={staggerContainer} className="text-center mb-10">
+          <motion.span
+            variants={fadeItem}
+            className="text-indigo-600 font-semibold text-sm uppercase tracking-wide"
+          >
             Visit Our Office
-          </span>
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mt-2">
+          </motion.span>
+          <motion.h2
+            variants={fadeItem}
+            className="text-3xl md:text-4xl font-bold text-gray-900 mt-2"
+          >
             We’re located in the heart of the business district
-          </h2>
-          <p className="text-gray-500 max-w-2xl mx-auto mt-3">
+          </motion.h2>
+          <motion.p
+            variants={fadeItem}
+            className="text-gray-500 max-w-2xl mx-auto mt-3"
+          >
             Drop by for a face‑to‑face consultation or reach us through the
             form.
-          </p>
-        </div>
+          </motion.p>
+        </motion.div>
 
-        <div className="grid md:grid-cols-2 gap-8 items-stretch">
+        <motion.div
+          variants={staggerContainer}
+          initial="hidden"
+          whileInView="show"
+          viewport={viewportOnce}
+          className="grid md:grid-cols-2 gap-8 items-stretch"
+        >
           {/* Map container */}
-          <div className="rounded-2xl overflow-hidden shadow-xl border border-gray-200 h-80 md:h-auto min-h-[300px]">
+          <motion.div
+            variants={fadeItem}
+            whileHover={cardHover}
+            className="rounded-2xl overflow-hidden shadow-xl border border-gray-200 h-80 md:h-auto min-h-75"
+          >
             <iframe
               title="TrustEdge Office Location"
               src={mapEmbedUrl}
@@ -33,10 +70,14 @@ export default function LocationMap() {
               referrerPolicy="no-referrer-when-downgrade"
               className="w-full h-full"
             ></iframe>
-          </div>
+          </motion.div>
 
           {/* Address & details */}
-          <div className="bg-white rounded-2xl shadow-lg p-6 md:p-8 flex flex-col justify-center border border-gray-100">
+          <motion.div
+            variants={fadeItem}
+            whileHover={cardHover}
+            className="bg-white rounded-2xl shadow-lg p-6 md:p-8 flex flex-col justify-center border border-gray-100"
+          >
             <div className="flex items-start gap-4 mb-6">
               <div className="bg-indigo-100 p-3 rounded-full">
                 <svg
@@ -97,10 +138,12 @@ export default function LocationMap() {
               </div>
             </div>
 
-            <a
+            <motion.a
               href="https://maps.google.com/?q=DHA+Phase+5+Lahore+Pakistan"
               target="_blank"
               rel="noopener noreferrer"
+              whileHover={buttonHover}
+              whileTap={buttonTap}
               className="inline-flex items-center justify-center gap-2 bg-indigo-50 text-indigo-700 font-semibold py-2.5 px-5 rounded-xl hover:bg-indigo-100 transition mt-2"
             >
               Get Directions
@@ -117,10 +160,10 @@ export default function LocationMap() {
                   d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
                 />
               </svg>
-            </a>
-          </div>
-        </div>
+            </motion.a>
+          </motion.div>
+        </motion.div>
       </div>
-    </section>
+    </motion.section>
   );
 }

@@ -1,4 +1,13 @@
 import ContactForm from "../components/Contactform";
+import { motion } from "framer-motion";
+import AnimatedCounter from "../components/AnimatedCounter";
+import {
+  cardHover,
+  fadeItem,
+  sectionFadeUp,
+  staggerContainer,
+  viewportOnce,
+} from "../lib/animations";
 
 export default function ExpertiseSection() {
   const expertise = [
@@ -30,28 +39,58 @@ export default function ExpertiseSection() {
 
   return (
     <>
-      <section id="expertise" className="py-20 bg-gray-50">
+      <motion.section
+        id="expertise"
+        className="py-20 bg-gray-50"
+        variants={sectionFadeUp}
+        initial="hidden"
+        whileInView="show"
+        viewport={viewportOnce}
+      >
         <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12">
           {/* Section header */}
-          <div className="text-center max-w-3xl mx-auto mb-14">
-            <span className="text-indigo-600 font-semibold text-sm uppercase tracking-wide">
+          <motion.div
+            variants={staggerContainer}
+            className="text-center max-w-3xl mx-auto mb-14"
+          >
+            <motion.span
+              variants={fadeItem}
+              className="text-indigo-600 font-semibold text-sm uppercase tracking-wide"
+            >
               Core Expertise
-            </span>
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mt-2">
+            </motion.span>
+            <motion.h2
+              variants={fadeItem}
+              className="text-3xl md:text-4xl font-bold text-gray-900 mt-2"
+            >
               Deep-domain legal & tax mastery
-            </h2>
-            <div className="w-20 h-1 bg-indigo-600 mx-auto mt-4 rounded-full"></div>
-            <p className="text-gray-500 mt-5 text-lg">
+            </motion.h2>
+            <motion.div
+              variants={fadeItem}
+              className="w-20 h-1 bg-indigo-600 mx-auto mt-4 rounded-full"
+            ></motion.div>
+            <motion.p
+              variants={fadeItem}
+              className="text-gray-500 mt-5 text-lg"
+            >
               Our team brings decades of combined experience from top-tier firms
               and regulatory bodies.
-            </p>
-          </div>
+            </motion.p>
+          </motion.div>
 
           {/* Expertise grid */}
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <motion.div
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="show"
+            viewport={viewportOnce}
+            className="grid md:grid-cols-2 lg:grid-cols-4 gap-8"
+          >
             {expertise.map((area, idx) => (
-              <div
+              <motion.div
                 key={idx}
+                variants={fadeItem}
+                whileHover={cardHover}
                 className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 transition-all duration-300 hover:shadow-md hover:-translate-y-1"
               >
                 <div className="text-4xl mb-4">{area.icon}</div>
@@ -61,16 +100,19 @@ export default function ExpertiseSection() {
                 <p className="text-gray-600 text-sm leading-relaxed">
                   {area.description}
                 </p>
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
 
           {/* Authority-building stat bar */}
-          <div className="mt-16 bg-indigo-900/5 rounded-2xl p-6 md:p-8 border border-indigo-100">
+          <motion.div
+            variants={fadeItem}
+            className="mt-16 bg-indigo-900/5 rounded-2xl p-6 md:p-8 border border-indigo-100"
+          >
             <div className="flex flex-col md:flex-row justify-between items-center gap-6">
               <div className="text-center md:text-left">
                 <p className="text-indigo-800 font-bold text-2xl md:text-3xl">
-                  98%
+                  <AnimatedCounter end={98} suffix="%" />
                 </p>
                 <p className="text-gray-700 text-sm">
                   client satisfaction rate
@@ -79,7 +121,7 @@ export default function ExpertiseSection() {
               <div className="w-px h-10 bg-indigo-200 hidden md:block"></div>
               <div className="text-center md:text-left">
                 <p className="text-indigo-800 font-bold text-2xl md:text-3xl">
-                  2,500+
+                  <AnimatedCounter end={2500} suffix="+" />
                 </p>
                 <p className="text-gray-700 text-sm">
                   tax returns filed successfully
@@ -88,7 +130,7 @@ export default function ExpertiseSection() {
               <div className="w-px h-10 bg-indigo-200 hidden md:block"></div>
               <div className="text-center md:text-left">
                 <p className="text-indigo-800 font-bold text-2xl md:text-3xl">
-                  15+
+                  <AnimatedCounter end={15} suffix="+" />
                 </p>
                 <p className="text-gray-700 text-sm">
                   years of combined legal experience
@@ -97,19 +139,21 @@ export default function ExpertiseSection() {
               <div className="w-px h-10 bg-indigo-200 hidden md:block"></div>
               <div className="text-center md:text-left">
                 <p className="text-indigo-800 font-bold text-2xl md:text-3xl">
-                  100%
+                  <AnimatedCounter end={100} suffix="%" />
                 </p>
                 <p className="text-gray-700 text-sm">
                   confidential & compliant
                 </p>
               </div>
             </div>
-          </div>
+          </motion.div>
 
           {/* CTA within expertise (subtle but reinforces action) */}
-          <div className="text-center mt-12">
-            <a
+          <motion.div variants={fadeItem} className="text-center mt-12">
+            <motion.a
               href="#contact"
+              whileHover={{ x: 4 }}
+              transition={{ duration: 0.2 }}
               className="inline-flex items-center gap-2 text-indigo-700 font-semibold hover:text-indigo-800 transition"
             >
               Let our experts guide you
@@ -126,10 +170,10 @@ export default function ExpertiseSection() {
                   d="M17 8l4 4m0 0l-4 4m4-4H3"
                 />
               </svg>
-            </a>
-          </div>
+            </motion.a>
+          </motion.div>
         </div>
-      </section>
+      </motion.section>
       <ContactForm />
     </>
   );
