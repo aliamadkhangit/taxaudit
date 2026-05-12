@@ -17,6 +17,7 @@ export default function HeroSection() {
   return (
     <>
       <motion.section
+        id="top"
         variants={sectionFadeUp}
         initial="hidden"
         animate="show"

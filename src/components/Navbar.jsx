@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 
 import { BsMoon, BsSun } from "react-icons/bs";
@@ -12,6 +12,8 @@ import { RiBriefcaseLine } from "react-icons/ri";
 import { buttonHover, buttonTap, easeOutExpo } from "../lib/animations";
 
 export default function Navbar() {
+  const location = useLocation();
+
   const [isDark, setIsDark] = useState(() => {
     if (typeof window !== "undefined") {
       const saved = localStorage.getItem("theme");
@@ -29,27 +31,41 @@ export default function Navbar() {
     {
       name: "Home",
       to: "/",
+      section: "top",
       icon: <AiOutlineHome className="w-5 h-5" />,
     },
 
     {
       name: "Services",
       to: "/services",
+      section: "services",
       icon: <RiBriefcaseLine className="w-5 h-5" />,
     },
 
     {
       name: "Expertise",
       to: "/expertise",
+      section: "expertise",
       icon: <FiAward className="w-5 h-5" />,
     },
 
     {
       name: "Contact",
       to: "/contact",
+      section: "contact-form",
       icon: <FiPhone className="w-5 h-5" />,
     },
   ];
+
+  const isMobileActive = (section) => {
+    if (location.pathname !== "/") return false;
+
+    if (section === "top") {
+      return !location.hash || location.hash === "#top";
+    }
+
+    return location.hash === `#${section}`;
+  };
 
   const toggleDarkMode = () => {
     setIsDark(!isDark);
@@ -64,6 +80,19 @@ export default function Navbar() {
       localStorage.setItem("theme", "light");
     }
   }, [isDark]);
+
+  useEffect(() => {
+    if (location.pathname !== "/") return;
+
+    const hash = location.hash?.replace("#", "");
+
+    if (!hash) return;
+
+    const section = document.getElementById(hash);
+    if (section) {
+      section.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }, [location.pathname, location.hash]);
 
   return (
     <>
@@ -177,39 +206,44 @@ export default function Navbar() {
         >
           <div className="flex items-center justify-around">
             {navLinks.map((link) => (
-              <NavLink
+              <Link
                 key={link.name}
-                to={link.to}
-                end={link.to === "/"}
+                to={`/${link.section === "top" ? "" : `#${link.section}`}`}
                 className="flex min-w-15 justify-center"
               >
-                {({ isActive }) => (
-                  <motion.div
-                    whileHover={{ y: -2, scale: 1.04 }}
-                    whileTap={{ scale: 0.97 }}
-                    className={`relative flex flex-col items-center justify-center transition-all duration-300 ${
-                      isActive
-                        ? "text-indigo-600"
-                        : "text-gray-500 dark:text-gray-400"
-                    }`}
-                  >
-                    {isActive ? (
-                      <motion.span
-                        layoutId="mobile-active-pill"
-                        className="absolute -top-2 h-1 w-7 rounded-full bg-indigo-600"
-                      />
-                    ) : null}
+                {(() => {
+                  const isActive = isMobileActive(link.section);
+
+                  return (
                     <motion.div
-                      className="mb-1"
-                      animate={isActive ? { scale: 1.12 } : { scale: 1 }}
-                      transition={{ duration: 0.22 }}
+                      whileHover={{ y: -2, scale: 1.04 }}
+                      whileTap={{ scale: 0.97 }}
+                      className={`relative flex flex-col items-center justify-center transition-all duration-300 ${
+                        isActive
+                          ? "text-indigo-600"
+                          : "text-gray-500 dark:text-gray-400"
+                      }`}
                     >
-                      {link.icon}
+                      {isActive ? (
+                        <motion.span
+                          layoutId="mobile-active-pill"
+                          className="absolute -top-2 h-1 w-7 rounded-full bg-indigo-600"
+                        />
+                      ) : null}
+                      <motion.div
+                        className="mb-1"
+                        animate={isActive ? { scale: 1.12 } : { scale: 1 }}
+                        transition={{ duration: 0.22 }}
+                      >
+                        {link.icon}
+                      </motion.div>
+                      <span className="text-[11px] font-medium">
+                        {link.name}
+                      </span>
                     </motion.div>
-                    <span className="text-[11px] font-medium">{link.name}</span>
-                  </motion.div>
-                )}
-              </NavLink>
+                  );
+                })()}
+              </Link>
             ))}
           </div>
         </div>

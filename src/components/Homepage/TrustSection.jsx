@@ -73,6 +73,7 @@ export default function TrustSection() {
 
   return (
     <motion.section
+      id="expertise"
       variants={sectionFadeUp}
       initial="hidden"
       whileInView="show"
