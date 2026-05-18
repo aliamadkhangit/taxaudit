@@ -10,8 +10,9 @@ import {
 } from "../lib/animations";
 
 export default function LocationMap() {
-  const OfficeAddress = "DHA Phase 5, Lahore, Pakistan";
-  const mapEmbedUrl = "https://maps.app.goo.gl/VJXCH2i5NZaTQuur5";
+  const OfficeAddress = "Block 6 Clifton, Karachi, 75600, Pakistan";
+  const mapEmbedUrl =
+    "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3621.078536145651!2d67.02509599999999!3d24.8269877!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3eb33d40186f3ddf%3A0x89d0bb42a437df43!2sTAX%20AUDIT%20PAKISTAN!5e0!3m2!1sen!2s!4v1779113226239!5m2!1sen!2s";
 
   return (
     <motion.section

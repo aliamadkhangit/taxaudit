@@ -204,7 +204,7 @@ export default function Footer() {
                   />
                 </svg>
                 <span className="text-gray-400">
-                  DHA Phase 5, Lahore, Pakistan
+                  Block 6 Clifton, Karachi, 75600, Pakistan
                 </span>
               </li>
               <li className="flex items-start gap-3 text-sm">
@@ -241,7 +241,7 @@ export default function Footer() {
                   href="mailto:hello@trustedge.com"
                   className="text-gray-400 hover:text-indigo-400 transition"
                 >
-                  taxaudit486@gmail.com
+                  contact@taxauditpakistan.com
                 </a>
               </li>
             </ul>
