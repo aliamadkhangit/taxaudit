@@ -11,8 +11,7 @@ import {
 
 export default function LocationMap() {
   const OfficeAddress = "DHA Phase 5, Lahore, Pakistan";
-  const mapEmbedUrl =
-    "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d217958.6880388857!2d74.20311165!3d31.48212055!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x391903eb7c1dd6c7%3A0xa4a279ab33614dc7!2sDHA%20Phase%205%2C%20Lahore%2C%20Pakistan!5e0!3m2!1sen!2s!4v1715600000000!5m2!1sen!2s";
+  const mapEmbedUrl = "https://maps.app.goo.gl/VJXCH2i5NZaTQuur5";
 
   return (
     <motion.section
