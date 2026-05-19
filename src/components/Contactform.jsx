@@ -159,7 +159,7 @@ export default function ContactForm() {
                 </div>
                 <div>
                   <h3 className="font-semibold text-gray-800">Email support</h3>
-                  <p className="text-gray-500">taxaudit486@gmail.com</p>
+                  <p className="text-gray-500">contact@taxauditpakistan.com</p>
                 </div>
               </motion.div>
               <motion.div
