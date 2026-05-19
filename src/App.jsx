@@ -4,6 +4,7 @@ import { useLocation } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import ScrollProgress from "./components/ScrollProgress";
+import FloatingWhatsApp from "./components/FloatingWhatsApp";
 import Home from "./pages/Home";
 
 import Services from "./pages/Services";
@@ -38,6 +39,7 @@ function App() {
         </AnimatePresence>
       </main>
       <Footer />
+      <FloatingWhatsApp />
     </div>
   );
 }
