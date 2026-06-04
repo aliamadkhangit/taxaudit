@@ -125,8 +125,8 @@ export default function Navbar() {
                 text-gray-900 dark:text-white
               "
             >
-              Tax
-              <span className="text-indigo-600">Audit</span>
+              Tax Audit
+              <span className="text-indigo-600"> Pakistan</span>
             </Link>
 
             {/* Desktop Links */}
