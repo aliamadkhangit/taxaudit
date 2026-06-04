@@ -36,7 +36,7 @@ export default function Footer() {
                 <span className="text-white font-bold text-lg">T</span>
               </div>
               <span className="font-bold text-white text-xl tracking-tight">
-                Tax<span className="text-indigo-400">Aduit</span>
+                Tax<span className="text-indigo-400">Audit</span>
               </span>
             </div>
             <p className="text-sm text-gray-400 leading-relaxed">

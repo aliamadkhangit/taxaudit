@@ -126,7 +126,7 @@ export default function Navbar() {
               "
             >
               Tax
-              <span className="text-indigo-600">Aduite</span>
+              <span className="text-indigo-600">Audit</span>
             </Link>
 
             {/* Desktop Links */}
