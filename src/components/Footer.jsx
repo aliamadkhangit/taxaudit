@@ -270,7 +270,7 @@ export default function Footer() {
 
         {/* Copyright bar */}
         <div className="mt-8 pt-6 border-t border-gray-800 text-center text-xs text-gray-500">
-          © {currentYear} TaxAduit. All rights reserved. Empowering Pakistan’s
+          © {currentYear} Tax Audit Pakistan. All rights reserved. Empowering Pakistan’s
           businesses.
         </div>
       </div>
